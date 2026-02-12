@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Blog</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <h1>Welcome to the Blog Page</h1>
+  <nav>
+    <a href="index.html">Home</a>
+    <a href="about.html">About</a>
+    <a href="contact.html">Contact</a>
+    <a href="blog.html">Blog</a>
+  </nav>
+  <br><br>
+  <div id="posts"></div>
+  <script>
+    fetch("post.json")
+      .then(response => response.json())
+      .then(posts => {
+        const postsContainer = document.getElementById("posts");
+        posts.forEach(post => {
+          const postElement = document.createElement("div");
+          postElement.innerHTML = `
+            <h2>${post.title}</h2>
+            <p>${post.content}</p>
+            <hr>
+          `;
+          postsContainer.appendChild(postElement);
+        });
+      })
+      .catch(error => {
+        console.error("Error fetching posts:", error);
+      });
+  </script>
+</body>
+</html>
